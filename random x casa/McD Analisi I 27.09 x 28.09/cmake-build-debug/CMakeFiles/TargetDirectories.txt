@@ -1,0 +1,3 @@
+/home/davidesqueri/CLionProjects/Uni/uniProjects/random x casa/McD Analisi I 27.09 x 28.09/cmake-build-debug/CMakeFiles/McD_Analisi_I_27_09_x_28_09.dir
+/home/davidesqueri/CLionProjects/Uni/uniProjects/random x casa/McD Analisi I 27.09 x 28.09/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/davidesqueri/CLionProjects/Uni/uniProjects/random x casa/McD Analisi I 27.09 x 28.09/cmake-build-debug/CMakeFiles/rebuild_cache.dir

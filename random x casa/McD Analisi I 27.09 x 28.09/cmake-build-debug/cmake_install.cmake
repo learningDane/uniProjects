@@ -1,4 +1,4 @@
-# Install script for directory: /home/davidesqueri/CLionProjects/Uni/uniProjects/FdP lezioni/27.09.2023 lez.1
+# Install script for directory: /home/davidesqueri/CLionProjects/Uni/uniProjects/random x casa/McD Analisi I 27.09 x 28.09
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/davidesqueri/CLionProjects/Uni/uniProjects/FdP lezioni/27.09.2023 lez.1/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/davidesqueri/CLionProjects/Uni/uniProjects/random x casa/McD Analisi I 27.09 x 28.09/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
