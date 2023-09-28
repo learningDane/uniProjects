@@ -1,3 +1,5 @@
+// questo programma chiede all'utente una equazione di primo grado e restituisce il valore di x
+
 #include <iostream>
 using namespace std;
 
