@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "28_09_2023_lab",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "28_09_2023_lab::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-28_09_2023_lab-Debug-35bd768c9397abab160b.json",
+					"name" : "28_09_2023_lab",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/davidesqueri/CLionProjects/Uni/uniProjects/FdP lezioni/28.09.2023 lab/cmake-build-debug",
+		"source" : "/home/davidesqueri/CLionProjects/Uni/uniProjects/FdP lezioni/28.09.2023 lab"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 5
+	}
+}
