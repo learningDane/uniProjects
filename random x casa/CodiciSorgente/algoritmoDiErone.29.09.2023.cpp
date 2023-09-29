@@ -3,8 +3,8 @@
 using namespace std;
 
 int i = 0;
-long double n;
-long double n1;
+double n;
+double n1;
 int j;
 
 int main() {
@@ -17,7 +17,12 @@ int main() {
         n = 0.5 * (n + (2 / n));
         cout << n << endl;
         n1 = n;
-        i++;
+
+        while (n1 != 0) {
+            n1 = n1 - int(n1);
+            n1 = n1 * 10;
+            i++;
+        }
     }
 
     cout << "sqrt{2} = " << n << endl;
