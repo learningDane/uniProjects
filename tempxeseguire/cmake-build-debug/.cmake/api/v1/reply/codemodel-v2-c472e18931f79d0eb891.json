@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.26"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "tempxeseguire::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-tempxeseguire-Debug-5aa10a60671019bd7365.json",
+					"jsonFile" : "target-tempxeseguire-Debug-0d0a2dbe7cf074c70127.json",
 					"name" : "tempxeseguire",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/davidesqueri/CLionProjects/Uni/uniProjects/tempxeseguire/cmake-build-debug",
-		"source" : "/home/davidesqueri/CLionProjects/Uni/uniProjects/tempxeseguire"
+		"build" : "E:/Davide/Documents/Uni/uniProjects/tempxeseguire/cmake-build-debug",
+		"source" : "E:/Davide/Documents/Uni/uniProjects/tempxeseguire"
 	},
 	"version" : 
 	{
