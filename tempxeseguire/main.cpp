@@ -1,38 +1,45 @@
 #include <iostream>
-#include <vector>
-
+#include <random>
 using namespace std;
 
+void sort(int *first, int maxNums){
+    int min = 0;
+    int temp;
+    for (int i = 0; i <= maxNums ;i++) {
+        for (int j = 1; j <= maxNums-i; j++) {
+            if (*(first + i + j) < *(first + min)) {
+                min = i +j;
+            }
+        }
+        temp = *(first + i);
+        *(first + i) = *(first + min);
+        *(first + min) = temp;
+    }
+}
 
 int main() {
-    vector<int> nums{3, 4, 10, 9};
-    int target = 13;
-    short int n = 0;
-    int n1 = nums[n];
-    int n2 = nums[n];
-    int length = 0;
-    for (int element: nums) {
-        length++;
-    }
-    vector<int> result;
+    random_device rd;
+    mt19937 gen(rd());
 
-    while (nums[n1] + nums[n2] != target) {
-        while (nums[n] >= target) {
-            n++;
-        }
-        n1 = n;
+    int min_value = 0;
+    int max_value = 99;
+    uniform_int_distribution<int> distribution(min_value, max_value);
+    int maxNums = distribution(gen);
 
-        while (nums[n1] + nums[n] != target || n == length) {
-            n++;
-        }
-        n2 = n;
+    int nums[maxNums];
+
+    for (int i = 0; i < maxNums ; i++) {
+        nums[i] = distribution(gen);
     }
 
-    result.push_back(n1);
-    result.push_back(n2);
-    n = 0;
-    for (int element: result) {
-        cout << result[n] << endl;
-        n++;
+    for (int i = 0; i <= maxNums ; i++) {
+        cout << nums[i] << '\t';
+    }
+    cout << endl << endl;
+
+    sort(&nums[0],maxNums);
+
+    for (int i = 0; i <= maxNums ; i++) {
+        cout << nums[i] << '\t';
     }
 }
