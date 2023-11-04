@@ -1,0 +1,3 @@
+/home/kwisatzhaderach/Documenti/Uni/uniProjects/tempxeseguire/tempVivobook/cmake-build-debug/CMakeFiles/tempVivobook.dir
+/home/kwisatzhaderach/Documenti/Uni/uniProjects/tempxeseguire/tempVivobook/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kwisatzhaderach/Documenti/Uni/uniProjects/tempxeseguire/tempVivobook/cmake-build-debug/CMakeFiles/rebuild_cache.dir
