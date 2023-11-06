@@ -14,3 +14,4 @@ int main() {
     char carattere = 'd';
     cout << "il carattere " << carattere << " si trova in posizione " << search(stringa , carattere) << endl;
 }
+
