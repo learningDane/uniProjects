@@ -21,19 +21,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0aabf53e-05d4-44d6-bf41-0567027a2057" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/squer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FdP lezioni/CodiciSorgente/2023.10.19/lab.19.10.2023.1.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FdP lezioni/CodiciSorgente/2023.10.19/lab.19.10.2023.2.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FdP lezioni/CodiciSorgente/2023.10.19/lab.19.10.2023.3.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FdP lezioni/CodiciSorgente/2023.10.19/lab.19.10.2023.4.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FdP lezioni/CodiciSorgente/2023.10.26/lab.2.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FdP lezioni/CodiciSorgente/2023.10.26/lab.3.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FdP lezioni/CodiciSorgente/2023.10.26/lab.5.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FdP lezioni/CodiciSorgente/2023.10.26/lab.6.cpp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tempxeseguire.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/tempxeseguire.dir/main.cpp.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/tempxeseguire.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/tempxeseguire.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
@@ -65,6 +55,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -104,6 +95,7 @@
       <workItem from="1697007005166" duration="101000" />
       <workItem from="1698569295009" duration="8349000" />
       <workItem from="1699183033786" duration="7685000" />
+      <workItem from="1699358814562" duration="1218000" />
     </task>
     <servers />
   </component>
