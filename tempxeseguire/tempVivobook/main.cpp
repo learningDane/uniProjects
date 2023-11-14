@@ -1,16 +1,31 @@
-// vquesto programma cerca un determinato carattere in una stringa
-#include <iostream>
-#include <cstring>
+#include<iostream>
 using namespace std;
 
-int search(string stringa, char carattere) {
-    for (int i = 0; i < stringa.length() / 2 ; i++)  {
-        if (stringa[i] == carattere) { return i;}
+struct elem{
+    int informazione;
+    elem* punSuccessivo;
+};
+
+void aggiungiElem(elem*& primo, int newElemInf){
+    elem* temp = new elem;
+    temp-> informazione = newElemInf;
+    temp-> punSuccessivo = primo;
+    primo=temp;
+    delete temp;
+}
+
+void stampaLista(elem*&elemento,int lung) {
+    cout << elemento->informazione;
+    lung--;
+    if (lung != 0) {
+        stampaLista((elemento->punSuccessivo));
     }
 }
 
 int main() {
-    string stringa= "Fondamenti di Programmazione";
-    char carattere = 'd';
-    cout << "il carattere " << carattere << " si trova in posizione " << search(stringa , carattere) << endl;
+    int a = 45;
+    elem* primo = nullptr;
+    aggiungiElem(primo,a);
+    aggiungiElem(primo,85);
+    stampaLista(primo,2);
 }
