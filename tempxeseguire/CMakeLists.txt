@@ -3,4 +3,6 @@ project(tempxeseguire)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(tempxeseguire main.cpp)
+add_executable(tempxeseguire main.cpp
+        iscrizione.cpp
+        iscrizione.h)

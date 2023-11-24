@@ -1,12 +1,19 @@
+#include "iscrizione.h"
 #include <iostream>
 using namespace std;
-struct elem{
-    chat titolo[64];
-    elem* pun;
-};
-void aggiungi(elem*& L, char alb[64]){
-
-}
 int main() {
-    elem* L= new elem;
+    lista L;
+    L.init();
+    L.visualizza();
+    L.aggiungi("mario.bianchi", 24);
+    L.aggiungi("sergio.rossi", 6);
+    L.aggiungi("sergio.rossi", 4); // gia' presente
+    L.aggiungi("gianni.verdi", 32);
+    L.aggiungi("luigi.neri", 6); // gia' presente
+    L.visualizza();
+    cout << L.cerca("mario.bianchi") << endl;
+    L.elimina("mario.bianchi");
+    cout << L.cerca("mario.bianchi") << endl;
+    L.visualizza();
+    return 0;
 }
