@@ -55,8 +55,8 @@ build CMakeFiles/tempVivobook.dir/main.cpp.o: CXX_COMPILER__tempVivobook_unscann
   OBJECT_DIR = CMakeFiles/tempVivobook.dir
   OBJECT_FILE_DIR = CMakeFiles/tempVivobook.dir
 
-build CMakeFiles/tempVivobook.dir/blah.cpp.o: CXX_COMPILER__tempVivobook_unscanned_Debug /home/kwisatzhaderach/Documenti/Uni/uniProjects/tempxeseguire/tempVivobook/cmake-build-debug/blah.cpp || cmake_object_order_depends_target_tempVivobook
-  DEP_FILE = CMakeFiles/tempVivobook.dir/blah.cpp.o.d
+build CMakeFiles/tempVivobook.dir/cinema.cpp.o: CXX_COMPILER__tempVivobook_unscanned_Debug /home/kwisatzhaderach/Documenti/Uni/uniProjects/tempxeseguire/tempVivobook/cinema.cpp || cmake_object_order_depends_target_tempVivobook
+  DEP_FILE = CMakeFiles/tempVivobook.dir/cinema.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/tempVivobook.dir
   OBJECT_FILE_DIR = CMakeFiles/tempVivobook.dir
@@ -69,7 +69,7 @@ build CMakeFiles/tempVivobook.dir/blah.cpp.o: CXX_COMPILER__tempVivobook_unscann
 #############################################
 # Link the executable tempVivobook
 
-build tempVivobook: CXX_EXECUTABLE_LINKER__tempVivobook_Debug CMakeFiles/tempVivobook.dir/main.cpp.o CMakeFiles/tempVivobook.dir/blah.cpp.o
+build tempVivobook: CXX_EXECUTABLE_LINKER__tempVivobook_Debug CMakeFiles/tempVivobook.dir/main.cpp.o CMakeFiles/tempVivobook.dir/cinema.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/tempVivobook.dir
   POST_BUILD = :

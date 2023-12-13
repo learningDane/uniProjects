@@ -1,27 +1,25 @@
 #include <iostream>
+#include "cinema.h"
 using namespace std;
-int main() {
-    int n;
-    cout << "Inserisci n:" << endl;
-    cin >> n;
-    if(n < 1) {
-        cout << "Numero non valido" << endl;
-        return 0;
-    }
-    int* v = new int[n];
-    cout << "Inserisci " << n << " numeri:" << endl;
-    for(int i = 0; i < n; i++)
-        cin >> v[i];
-    int max = 0;
-    for(int i = 0; i < n; i++)
-        max = (v[i] > max) ? v[i]:max;
-    for(int i = 0; i < n; i++)
-        v[i] += max;
-    int mul = max;
-    for(int i = 0; i < n; i++)
-        mul *= v[i];
-    cout << "Risultato del calcolo:" << endl;
-    cout << mul;
-    delete[] v;
-    return 0;
+
+int main(){
+    // test prima parte
+    cinema c(3,7,"Moderno");
+    c.prenota('A',4); /*
+    c.prenota('C',1);
+    c.prenota('C',2);
+    c.prenota('C',3);
+    c.prenota('C',4);
+    c.prenota('C',5);
+    c.prenota('C',6);
+    c.prenota('C',7);
+    c.prenota('B',4);
+    c.stampa();
+    c.cancella('B',4);
+    c.stampa();
+    // test seconda parte
+    cout<<"Il numero di posti liberi in c e': "<<c.quantiLiberi()<<endl;
+    c.prenotaAdiacenti(4);
+    c.stampa();
+    return 0; */
 }
