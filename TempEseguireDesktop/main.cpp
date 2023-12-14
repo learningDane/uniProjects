@@ -16,9 +16,10 @@ public:
                 cinema::nome[i] = nome[i];
             }
         }
-
-        // Allocate memory for posti array
         cinema::posti = new bool[righe * colonne];
+        for (int i = 0; i < righe*colonne; i++) {
+            cinema::posti[i]=false;
+        }
     }
 
     ~cinema() {
@@ -35,14 +36,14 @@ public:
     }
 
     void stampa() {
-        for (int r = 0; r < cinema::righe; r++) {
+        for (int r = 0; r < cinema::righe + 1; r++) {
             if (r == 0) {
                 cout << 0 << '\t';
             } else {
                 cout << (char)('A' + r - 1);
             }
-            for (int c = 0; c < cinema::colonne; c++) {
-                if (r == 0) {
+            for (int c = 0; c < cinema::colonne + 1; c++) {
+                if (r == 0 && c!=7) {
                     cout << c + 1 << '\t';
                 } else {
                     if (cinema::posti[(r - 1) * cinema::colonne + c]) {
@@ -52,8 +53,11 @@ public:
                     }
                 }
             }
+            cout << endl;
         }
     }
+
+    bool cancella()
 };
 
 int main() {
