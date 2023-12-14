@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/kwisatzhaderach/Documenti/Uni/uniProjects/tempxeseguire/tempVivobook/cmake-build-debug",
-		"source" : "/home/kwisatzhaderach/Documenti/Uni/uniProjects/tempxeseguire/tempVivobook"
+		"build" : "/home/kwisatzhaderach/Documenti/Uni/uniProjects/tempVivobook/cmake-build-debug",
+		"source" : "/home/kwisatzhaderach/Documenti/Uni/uniProjects/tempVivobook"
 	},
 	"version" : 
 	{
