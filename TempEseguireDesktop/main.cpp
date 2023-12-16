@@ -1,125 +1,65 @@
+//#include "compito.h"
 #include <iostream>
-
 using namespace std;
-
-class cinema {
-    char nome[30];
-    int righe;
-    int colonne;
-    bool *posti;
-
+class Palazzo{
+private:
+    unsigned int maxPiani;
+    struct Piano{
+        bool finestre[];
+        int*link;
+    };
+    Piano*piani[];
 public:
-    cinema(int righe, int colonne, char *nome) : righe(righe), colonne(colonne) {
-        for (int i = 0; i < 30; i++) {
-            if (nome[i] == '\0') {
-                break;
-            } else {
-                cinema::nome[i] = nome[i];
-            }
-        }
-        cinema::posti = new bool[righe * colonne];
-        for (int i = 0; i < righe * colonne; i++) {
-            cinema::posti[i] = false;
-        }
+    Palazzo(int maxPiani) {
+        Palazzo::maxPiani = maxPiani;
+        Palazzo::piani = new Piano[maxPiani];
     }
+    Palazzo(Palazzo& p1) {
 
-    ~cinema() {
-        delete[] posti;
     }
+    void stampa(const Palazzo Palazzo) {
 
-    bool prenota(char riga, int colonna) {
-        short unsigned int intriga = riga - 'A';
-        if (cinema::posti[intriga * cinema::colonne + colonna]) {
-            return false;
-        }
-        cinema::posti[intriga * cinema::colonne + colonna] = true;
-        return true;
     }
+    void aggiungi(Palazzo Palazzo) {
 
-    void stampa() {
-        for (int r = 0; r < cinema::righe + 1; r++) {
-            if (r == 0) {
-                cout << 0 << '\t';
-            } else {
-                cout << (char) ('A' + r - 1) << '\t';
-            }
-            for (int c = 0; c < cinema::colonne; c++) {
-                if (r == 0) {
-                    cout << c + 1 << '\t';
-                } else {
-                    if (cinema::posti[(r) * cinema::colonne + c]) {
-                        cout << "*" << '\t';
-                    } else {
-                        cout << ' ' << '\t';
-                    }
-                }
-            }
-            cout << endl;
-        }
-        cout << endl;
-    }
-
-    bool cancella(char riga, int colonna) {
-        short unsigned int intriga = riga - 'A';
-        if (!(cinema::posti[intriga * cinema::colonne + colonna])) {
-            return false;
-        }
-        cinema::posti[intriga * cinema::colonne + colonna] = false;
-        return true;
-    }
-
-    int quantiLiberi() {
-        int postiLiberi = 0;
-        for (int i = 0; i < cinema::colonne * cinema::righe; i++) {
-            if (!(cinema::posti[i])) {
-                postiLiberi++;
-            }
-        }
-        return postiLiberi - 1;
-    }
-
-    bool prenotaAdiacenti(int postiDaPrenotare) {
-        short unsigned int postiAdiacenti = 0;
-        short unsigned int primoPostoConfermato = 0;
-        for (int postoAttuale = 0; postoAttuale < cinema::righe * cinema::colonne; postoAttuale++) {
-            if (postiAdiacenti == 0) {
-                primoPostoConfermato = postoAttuale;
-            } else if (postiAdiacenti == postiDaPrenotare) {
-                for (int i = 0; i < postiDaPrenotare; i++) {
-                    cinema::posti[primoPostoConfermato + i] = true;
-                }
-                return true;
-            }
-            //
-            if (cinema::posti[postoAttuale]) {
-                postiAdiacenti = 0;
-                continue;
-            } else { //il posto è vuoto
-                postiAdiacenti++;
-            }
-        }
-        return false;
     }
 };
+int main()
+{
+    // PRIMA PARTE:
+    cout << "Test del costruttore:" << endl;
+    Palazzo p1(5); /*
+    p1.stampa();
+    cout << endl;
+    cout << "Test del costruttore di copia:" << endl;
+    Palazzo p2(p1);
+    p2.stampa();
+    cout << endl;
+    cout << "Test della aggiungi:" << endl;
+    p1.aggiungi();
+    p1.aggiungi();
+    p1.stampa();
+    cout << endl;
+    // SECONDA PARTE:
+    /*cout << "Test del distruttore:" << endl;
+    {
+    Palazzo p(20);
+    }
+    cout << "(p e' stato distrutto)" << endl;
 
-int main() {
-    // PRIMA PARTE
-    cinema c(3, 7, "Moderno");
-    c.prenota('A', 4);
-    c.prenota('C', 1);
-    c.prenota('C', 2);
-    c.prenota('C', 3);
-    c.prenota('C', 4);
-    c.prenota('C', 5);
-    c.prenota('C', 6);
-    c.prenota('C', 7);
-    c.prenota('B', 4);
-    c.stampa();
-    c.cancella('B', 4);
-    c.stampa();
-    // SECONDA PARTE
-    cout << "Il numero di posti liberi in c e': " << c.quantiLiberi() << endl;
-    c.prenotaAdiacenti(4);
-    c.stampa();
+    cout << endl << "Test della cambia:" << endl;
+    p1.cambia(2, 1);
+    p1.cambia(3, 3);
+    p1.stampa();
+    cout << endl;
+    cout << "Test operator! :" << endl;
+    cout << !p1 << endl;
+    cout << endl << "Test operator%= :" << endl;
+    Palazzo p3(5);
+    p3.aggiungi();
+    p3.aggiungi();
+    p1 %= p3;
+    p1.stampa();
+    cout << endl;*/
     return 0;
 }
