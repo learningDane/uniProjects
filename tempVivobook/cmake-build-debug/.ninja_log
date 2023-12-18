@@ -1,3 +1,13 @@
 # ninja log v5
-0	604	1702586321758163033	CMakeFiles/tempVivobook.dir/main.cpp.o	ccb8c6978b40a7bc
+1	501	1702923375552447167	CMakeFiles/tempVivobook.dir/main.cpp.o	ccb8c6978b40a7bc
 604	694	1702586321848163275	tempVivobook	acbbd2f6d75091a5
+0	65	1702923439286411394	build.ninja	78b45cb6622e5c14
+2	151	1702923439453019365	tempVivobook	acbbd2f6d75091a5
+0	346	1702923455617088675	CMakeFiles/tempVivobook.dir/main.cpp.o	ccb8c6978b40a7bc
+347	404	1702923455673733863	tempVivobook	acbbd2f6d75091a5
+1	610	1702923660702060839	CMakeFiles/tempVivobook.dir/main.cpp.o	ccb8c6978b40a7bc
+610	701	1702923660792079997	tempVivobook	acbbd2f6d75091a5
+0	602	1702923808558715418	CMakeFiles/tempVivobook.dir/main.cpp.o	ccb8c6978b40a7bc
+602	695	1702923808652039376	tempVivobook	acbbd2f6d75091a5
+0	616	1702924215217034212	CMakeFiles/tempVivobook.dir/main.cpp.o	ccb8c6978b40a7bc
+616	709	1702924215307026731	tempVivobook	acbbd2f6d75091a5
