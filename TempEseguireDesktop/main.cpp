@@ -5,27 +5,31 @@ class Palazzo{
 private:
     unsigned int maxPiani; //forse non serve
     unsigned int pianiAttuali = 0;
-    bool*piani; //nel costruttore assegno poi la memoria necessaria
+    bool**finestre; //nel costruttore assegno poi la memoria necessaria
 public:
 
     Palazzo(int maxPiani) {
         Palazzo::maxPiani = maxPiani; //forse non serve
-        Palazzo::piani = new bool[maxPiani]; //posso assegnare direttamente con input
+        Palazzo::finestre = new bool*[maxPiani]; //posso assegnare direttamente con input
         Palazzo::pianiAttuali = 1; //il costruttore inizializza con un solo piano
-        bool*finestre = new bool[pianiAttuali]; //il piano ha (pianiAttuali)finestre, al momento della costruzione 1, perchè ha un piano
-        finestre[0] = false; //la finestra è chiusa
-        Palazzo::piani[0] = finestre; //il puntatore 0 deve puntare alle finestre del primo piano
+        Palazzo::finestre[0] = new bool[pianiAttuali]; //il piano ha (pianiAttuali)finestre, al momento della costruzione 1, perchè ha un piano
+        finestre[0][0] = false; //la finestra è chiusa
     }
     Palazzo(Palazzo& p1) {
-
+        Palazzo::maxPiani = p1.maxPiani; //forse non serve
+        Palazzo::finestre = new bool*[maxPiani]; //posso assegnare direttamente con input
+        Palazzo::pianiAttuali = 1; //il costruttore inizializza con un solo piano
+        Palazzo::finestre[0] = new bool[pianiAttuali]; //il piano ha (pianiAttuali)finestre, al momento della costruzione 1, perchè ha un piano
+        finestre[0][0] = false; //la finestra è chiusa
     }
-    void stampa(const Palazzo Palazzo) {
+    void stampa() {
         cout << "Palazzo:" << endl;
         for (int pianoAttuale = 0; pianoAttuale < Palazzo::pianiAttuali; pianoAttuale++) {
-            cout << "piano 1: ";
+            cout << "piano " << pianoAttuale + 1 << ": ";
             for (int finestraAttuale = 0; finestraAttuale <= pianoAttuale; finestraAttuale++) {
-                Palazzo::
+                cout << (Palazzo::finestre[pianoAttuale][finestraAttuale] ? "aperta " : "chiusa ");
             }
+            cout << endl;
         }
     }
     void aggiungi(Palazzo Palazzo) {
@@ -36,8 +40,8 @@ int main()
 {
     // PRIMA PARTE:
     cout << "Test del costruttore:" << endl;
-    Palazzo p1(5); /*
-    p1.stampa();
+    Palazzo p1(5);
+    p1.stampa(); /*
     cout << endl;
     cout << "Test del costruttore di copia:" << endl;
     Palazzo p2(p1);
