@@ -1,0 +1,69 @@
+--- PRIMA PARTE ---
+Test del costruttore:
+-- HISTORY --
+
+Test della record:
+-- HISTORY --
+108 BC
+ccc
+-----
+405 AD
+ddd
+-----
+503 AD
+aaa
+-----
+599 AD
+bbb
+-----
+711 AD
+eee
+-----
+902 AD
+fff
+-----
+
+Test della forget:
+-- HISTORY --
+405 AD
+ddd
+-----
+599 AD
+bbb
+-----
+711 AD
+eee
+-----
+902 AD
+fff
+-----
+
+Test del distruttore:
+(oggetto distrutto)
+
+--- SECONDA PARTE ---
+Test longest_period:
+194
+Test forget overloaded:
+-- HISTORY --
+405 AD
+ddd
+-----
+902 AD
+fff
+-----
+
+Test create_alternative:
+-- HISTORY --
+405 AD
+ddd
+-----
+507 AD
+hhh
+-----
+753 AD
+iii
+-----
+821 AD
+jjj
+-----

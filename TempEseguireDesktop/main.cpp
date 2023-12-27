@@ -1,125 +1,110 @@
-//#include "compito.h"
 #include <iostream>
+
 using namespace std;
-class Palazzo{
+
+class PuzzleBobble {
 private:
-    unsigned int maxPiani; //forse non serve
-    unsigned int pianiAttuali = 0;
-    bool**finestre; //nel costruttore assegno poi la memoria necessaria
+    char bubbles[10][6]; //righe*colonne
 public:
-
-    Palazzo(int maxPiani) {
-        Palazzo::maxPiani = maxPiani; //forse non serve
-        Palazzo::finestre = new bool*[maxPiani]; //posso assegnare direttamente con input
-        Palazzo::pianiAttuali = 1; //il costruttore inizializza con un solo piano
-        Palazzo::finestre[0] = new bool[pianiAttuali]; //il piano ha (pianiAttuali)finestre, al momento della costruzione 1, perchè ha un piano
-        finestre[0][0] = false; //la finestra è chiusa
-    }
-    Palazzo(Palazzo& p1) {
-        Palazzo::maxPiani = p1.maxPiani;
-        Palazzo::finestre = new bool*[maxPiani];
-        Palazzo::pianiAttuali = p1.pianiAttuali;
-        //adesso copio piano per piano (piano = finestre[x])
-        for (int i = 0; i < Palazzo::pianiAttuali; i++) { //i=piano attuale (il primo piano e a i = 0)
-            Palazzo::finestre[i] = new bool[i+1];
-            for (int j = 0; j < i; j++) {
-                Palazzo::finestre[i][j] = p1.finestre[i][j];
+    PuzzleBobble() {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 6; j++) {
+                bubbles[i][j] = ' ';
             }
         }
     }
-    void stampa() {
-        cout << "Palazzo:" << endl;
-        for (int pianoAttuale = 0; pianoAttuale < Palazzo::pianiAttuali; pianoAttuale++) {
-            cout << "piano " << pianoAttuale + 1 << ": ";
-            for (int finestraAttuale = 0; finestraAttuale <= pianoAttuale; finestraAttuale++) {
-                cout << (Palazzo::finestre[pianoAttuale][finestraAttuale] ? "aperta " : "chiusa ");
+
+    friend ostream& operator<<(ostream &os, const PuzzleBobble pb) { //ostream& = cosa viene prima dell'operatore <<, quindi std::cout
+        for (int i = -1; i < 11; i++) {
+            for (int j = -1; j < 7; j++) {
+                // ========
+                if (i == -1 || i == 10) {
+                    os << '=';
+                    continue;
+                }
+                    //   |
+                else if (j == -1 || j == 6) {
+                    os << '|';
+                }
+                    // bubble
+                else {
+                    os << pb.bubbles[i][j];
+                }
             }
-            cout << endl;
+            os << std::endl;
         }
-    }
-    bool aggiungi() {
-        if (Palazzo::pianiAttuali == Palazzo::maxPiani) {
-            return false;
-        }
-        Palazzo::finestre[Palazzo::pianiAttuali] = new bool[Palazzo::pianiAttuali];
-        for (int i = 0; i < Palazzo::pianiAttuali + 1; i++) {
-            finestre[pianiAttuali][i] = false;
-        }
-        Palazzo::pianiAttuali++;
-        return true;
+        return os;
     }
 
-    void cambia(const unsigned int piano, const unsigned int finestra) {
-        Palazzo::finestre[piano - 1][finestra - 1] = !Palazzo::finestre[piano - 1][finestra - 1];
+    PuzzleBobble& fire(short unsigned int colonna, char colore) {
+        for (int riga = 0; riga < 10; riga++) {
+            if (PuzzleBobble::bubbles[riga][colonna] == ' ') {
+                PuzzleBobble::bubbles[riga][colonna] = colore; // bubble = 'Y' ecc
+                return *this;
+            }
+        }
+        return *this;
     }
 
-    int operator!(){
-        unsigned int finestreAperte = 0;
-        for (int pianoAttuale = 0; pianoAttuale < Palazzo::pianiAttuali; pianoAttuale++) {
-            for (int finestraAttuale = 0; finestraAttuale <= pianoAttuale; finestraAttuale++) {
-                if (Palazzo::finestre[pianoAttuale][finestraAttuale]) {
-                    finestreAperte++;
+    operator int() const {
+        short unsigned int height = 0;
+        for (int riga; riga < 10; riga++) {
+            for (int col; col < 6; col++) {
+                if (PuzzleBobble::bubbles[riga][col] != ' ') {
+                    height++;
+                    break;
                 }
             }
         }
-        return finestreAperte;
+        return height;
     }
 
-    void operator%=(const Palazzo& other) {
-        if (Palazzo::pianiAttuali == other.pianiAttuali) {return;}
-        for (int pianoAttuale = 0; pianoAttuale < Palazzo::pianiAttuali; pianoAttuale++) {
-            for (int finestraAttuale = 0; finestraAttuale <= pianoAttuale; finestraAttuale++) {
-                //if (!Palazzo::finestre[pianoAttuale][finestraAttuale]) {
-                //    other.finestre[pianoAttuale][finestraAttuale] = false;
-                //}
-                finestre[0][0]= false;
+    bool check(int riga, int col) {
+        char color = bubbles[riga][col];
+        int temp = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0 ; col < 6; col++) {
+                if (bubbles[i][j] == color) {
+                    temp++;
+                    //temp è  il numero di bolle consecutive dello stesso colore
+                    if (temp == 3) {
+                        
+                    }
+                }
             }
         }
     }
 
-    virtual ~Palazzo() {
-        for (int i = 0; i < pianiAttuali; i++) {
-            delete[] Palazzo::finestre[i];
-        }
-        delete[] Palazzo::finestre;
-    }
 };
-int main()
-{
-    // PRIMA PARTE:
-    cout << "Test del costruttore:" << endl;
-    Palazzo p1(5);
-    p1.stampa();
-    cout << endl;
-    cout << "Test del costruttore di copia:" << endl;
-    Palazzo p2(p1);
-    p2.stampa();
-    cout << endl;
-    cout << "Test della aggiungi:" << endl;
-    p1.aggiungi();
-    p1.aggiungi();
-    p1.stampa();
-    cout << endl;
-    // SECONDA PARTE:
-    cout << "Test del distruttore:" << endl;
-    {
-    Palazzo p(20);
-    }
-    cout << "(p e' stato distrutto)" << endl;
 
-    cout << endl << "Test della cambia:" << endl;
-    p1.cambia(2, 1);
-    p1.cambia(3, 3);
-    p1.stampa();
-    cout << endl;
-    cout << "Test operator! :" << endl;
-    cout << !p1 << endl;
-    cout << endl << "Test operator%= :" << endl;
-    Palazzo p3(5);
-    p3.aggiungi();
-    p3.aggiungi();
-    p1 %= p3;
-    p1.stampa();
-    cout << endl;
-    return 0;
+int main() {
+    // PRIMA PARTE:
+    cout << "--- PRIMA PARTE ---" << endl;
+    cout << "Test costruttore" << endl;
+    PuzzleBobble pb;
+    cout << pb;
+
+    cout << "Test funzione fire" << endl;
+    pb.fire(0,'R').fire(1,'R').fire(0,'B').fire(2,'Y');
+    pb.fire(3,'Y').fire(3,'Y').fire(0,'B').fire(3,'G');
+    cout << pb;
+
+    cout << "Test operatore int" << endl;
+    cout << "Altezza: " << (int)pb << endl; /*
+    // SECONDA PARTE:
+    cout << "--- SECONDA PARTE ---" << endl;
+    cout << "Test funzionalita' scoppio bolle" << endl;
+    pb.fire(0,'B'); // scoppio verticale di 3 bolle
+    pb.fire(0,'R'); // no scoppio
+    pb.fire(5,'Y').fire(4,'Y'); // scoppio orizzontale di 4 bolle
+    pb.fire(3,'G'); // no scoppio
+    cout << pb;
+
+    cout << "Test funzione scroll" << endl;
+    pb.scroll().scroll();
+    cout << pb;
+    cout << "Test funzione compact" << endl;
+    pb.compact();
+    cout << pb;
+    return 0; */
 }
