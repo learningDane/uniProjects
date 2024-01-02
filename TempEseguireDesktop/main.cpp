@@ -1,110 +1,94 @@
 #include <iostream>
-
 using namespace std;
 
-class PuzzleBobble {
-private:
-    char bubbles[10][6]; //righe*colonne
-public:
-    PuzzleBobble() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 6; j++) {
-                bubbles[i][j] = ' ';
-            }
-        }
-    }
+struct Event{
+    int data;
+    char descr[30];
+    Event*link = nullptr;
+};
 
-    friend ostream& operator<<(ostream &os, const PuzzleBobble pb) { //ostream& = cosa viene prima dell'operatore <<, quindi std::cout
-        for (int i = -1; i < 11; i++) {
-            for (int j = -1; j < 7; j++) {
-                // ========
-                if (i == -1 || i == 10) {
-                    os << '=';
-                    continue;
-                }
-                    //   |
-                else if (j == -1 || j == 6) {
-                    os << '|';
-                }
-                    // bubble
-                else {
-                    os << pb.bubbles[i][j];
-                }
+class History{
+private:
+    Event* evento;
+public:
+
+    History() : evento(nullptr) {}
+
+    friend ostream &operator<<(ostream& os, const History& history) {
+        os << "-- HISTORY --" << endl;
+        Event*temp = new Event;
+        temp = history.evento;
+        while (temp != nullptr) {
+            if (history.evento->data > 0) {
+                os << history.evento->data << " AD" <<  endl;
             }
-            os << std::endl;
+            else { // data negativa
+                os << (-history.evento->data) + 1 << " BC" << endl;
+            }
+            for (int i = 0; i < 30; i++) {
+                if (history.evento->descr[i] == '\0') {
+                    break;
+                }
+                os << history.evento->descr[i];
+            }
+            os << '\n' << "-----" << endl;
+            //go to the next
+            temp = temp->link;
         }
         return os;
     }
-
-    PuzzleBobble& fire(short unsigned int colonna, char colore) {
-        for (int riga = 0; riga < 10; riga++) {
-            if (PuzzleBobble::bubbles[riga][colonna] == ' ') {
-                PuzzleBobble::bubbles[riga][colonna] = colore; // bubble = 'Y' ecc
-                return *this;
-            }
-        }
-        return *this;
-    }
-
-    operator int() const {
-        short unsigned int height = 0;
-        for (int riga; riga < 10; riga++) {
-            for (int col; col < 6; col++) {
-                if (PuzzleBobble::bubbles[riga][col] != ' ') {
-                    height++;
-                    break;
-                }
-            }
-        }
-        return height;
-    }
-
-    bool check(int riga, int col) {
-        char color = bubbles[riga][col];
-        int temp = 0;
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0 ; col < 6; col++) {
-                if (bubbles[i][j] == color) {
-                    temp++;
-                    //temp è  il numero di bolle consecutive dello stesso colore
-                    if (temp == 3) {
-                        
-                    }
-                }
-            }
-        }
-    }
-
 };
 
-int main() {
-    // PRIMA PARTE:
+
+
+
+
+
+
+
+
+
+int main()
+{
     cout << "--- PRIMA PARTE ---" << endl;
-    cout << "Test costruttore" << endl;
-    PuzzleBobble pb;
-    cout << pb;
-
-    cout << "Test funzione fire" << endl;
-    pb.fire(0,'R').fire(1,'R').fire(0,'B').fire(2,'Y');
-    pb.fire(3,'Y').fire(3,'Y').fire(0,'B').fire(3,'G');
-    cout << pb;
-
-    cout << "Test operatore int" << endl;
-    cout << "Altezza: " << (int)pb << endl; /*
-    // SECONDA PARTE:
-    cout << "--- SECONDA PARTE ---" << endl;
-    cout << "Test funzionalita' scoppio bolle" << endl;
-    pb.fire(0,'B'); // scoppio verticale di 3 bolle
-    pb.fire(0,'R'); // no scoppio
-    pb.fire(5,'Y').fire(4,'Y'); // scoppio orizzontale di 4 bolle
-    pb.fire(3,'G'); // no scoppio
-    cout << pb;
-
-    cout << "Test funzione scroll" << endl;
-    pb.scroll().scroll();
-    cout << pb;
-    cout << "Test funzione compact" << endl;
-    pb.compact();
-    cout << pb;
+    cout << "Test del costruttore:" << endl;
+    History hist;
+    cout << hist << endl; /*
+    cout << "Test della record:" << endl;
+    hist.record(503, "aaa");
+    hist.record(599, "bbb");
+    hist.record(-107, "ccc");
+    hist.record(405, "ddd");
+    hist.record(711, "eee");
+    hist.record(902, "fff");
+    cout << hist << endl;
+    cout << "Test della forget:" << endl;
+    hist.forget("aaa");
+    hist.forget("ccc");
+    cout << hist << endl;
+    cout << "Test del distruttore:" << endl;
+    {
+        History hist2;
+        hist2.record(500, "aaa");
+        hist2.record(400, "bbb");
+        hist2.record(600, "ccc");
+    }
+    cout << "(oggetto distrutto)" << endl;
+    // SECONDA PARTE
+    cout << endl << "--- SECONDA PARTE ---" << endl;
+    cout << "Test longest_period:" << endl;
+    cout << hist.longest_period() << endl;
+    cout << "Test forget overloaded:" << endl;
+    hist.forget(500, 750);
+    cout << hist << endl;
+    cout << "Test create_alternative:" << endl;
+    History hist3;
+    hist3.record(-75, "ggg");
+    hist3.record(507, "hhh");
+    hist3.record(753, "iii");
+    hist3.record(821, "jjj");
+    History *p_hist4 = create_alternative(hist, 450, hist3);
+    cout << *p_hist4 << endl;
+    delete p_hist4;
     return 0; */
 }
