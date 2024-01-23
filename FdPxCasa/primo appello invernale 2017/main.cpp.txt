@@ -1,0 +1,159 @@
+#include <iostream>
+using namespace std;
+
+bool compareStrings(const char nome1[20], const char nome2[20]) {
+    for (int i = 0; i < 20; i++) {
+        if (nome1[i] == '\0' && nome2[i] == '\0') {
+            return true;
+        }
+        if (nome1[i] != nome2[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+class GestoreApp{
+private:
+    struct App{
+        char nome[20];
+        App*link = nullptr;
+    };
+    App*head = nullptr;
+public:
+    GestoreApp() = default;
+    GestoreApp operator+=(char nome[20]) {
+        //controllo se questa app esiste già
+        App*temp = head;
+        while (temp != nullptr) {
+            if ( compareStrings(temp->nome, nome)) { //esiste già quindi annullo
+                return *this;
+            }
+            temp = temp->link;
+        }
+        if (head == nullptr) { //la lista è vuota
+            head = new App;
+            for (int i = 0; i < 20; i++) {
+                head->nome[i] = nome[i];
+            }
+            return *this;
+        }
+        else { //la lista non è vuota
+            App*app = new App;
+            for (int i = 0; i < 20; i++) {
+                app->nome[i] = nome[i];
+            } //ho dato il nome
+            app->link = head; // ho dato il link
+            head = app;
+        }
+        return *this;
+    }
+     friend ostream& operator<<(ostream& os, GestoreApp gestoreApp) {
+        if (gestoreApp.head == nullptr) {
+            return os;
+        }
+        int i = 0;
+        App*temp = gestoreApp.head;
+        os << "[";
+        while (temp->nome[i] != '\0') {
+            os << temp->nome[i];
+            i++;
+        }
+        os << "], ";
+
+        temp = temp->link;
+        while (temp != nullptr) {
+            i = 0;
+            while (temp->nome[i] != '\0') {
+                os << temp->nome[i];
+                i++;
+            }
+            os << ", ";
+            temp = temp->link;
+        }
+        os << endl;
+        return os;
+    }
+    void foreground(char nome[20]) {
+        App*temp = head;
+        App*temp2 = nullptr;
+        while (temp->link != nullptr) {
+            temp2 = temp->link;
+            if ( compareStrings(nome, temp2->nome) ) {
+                temp->link = temp2->link;
+                temp2->link = head;
+                head = temp2; return;
+            }
+            temp = temp->link;
+        }
+        return;
+    }
+
+    GestoreApp operator-=(char nome[20]) {
+        App*temp = head;
+        if ( compareStrings(nome, head->nome)) {
+            //chiudo la seconda in lista
+            temp = head->link;
+            head->link = temp->link;
+            delete temp;
+            return *this;
+        }
+        App*temp2 = temp->link;
+        while (temp2 != nullptr) {
+            if ( compareStrings(nome, temp2->nome) ) {
+                temp->link = temp2->link;
+                delete temp2;
+                return *this;
+            }
+            temp = temp2;
+            temp2 = temp2->link;
+        }
+        return *this;
+    }
+};
+
+int main()
+{
+    cout << "--- PRIMA PARTE ---\n";
+
+    cout << "Test del costruttore:\n";
+    GestoreApp g;
+    cout << g << endl;
+
+    cout << "\nTest operatore +=:\n";
+    g += "WhatsApp";
+    cout << g << endl;
+
+    g += "PlayStore";
+    g += "TripAdvisor";
+    g += "Shazam";
+    g += "WhatsApp";               // fallisce
+    cout << g << endl;
+
+    cout << "\n--- SECONDA PARTE ---\n";
+
+    cout << "\nTest di foreground:\n";
+    g.foreground("TripAdvisor");
+    cout << g << endl;
+    g.foreground("YouTube");      // fallisce
+    cout << g << endl;
+
+    cout << "\nTest operatore -=:\n";
+    g -= "Shazam";
+    cout << g << endl;
+    g -= "YouTube";                // fallisce
+    cout << g << endl;
+    /*
+    cout << "\nTest di chiudi_tutte:\n";
+    g.chiudi_tutte();
+    cout << g << endl;
+
+    cout << "\nTest distruttore:\n";
+    {
+        GestoreApp g1;
+        g1 += "YouTube";
+        g1 += "Facebook";
+        cout << g1 << endl;
+    }
+    cout << "(g e' stato distrutto)\n"; */
+}

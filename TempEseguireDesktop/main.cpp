@@ -1,94 +1,120 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
-struct Event{
-    int data;
-    char descr[30];
-    Event*link = nullptr;
-};
-
-class History{
+class OggettiViaggio{
 private:
-    Event* evento;
+    struct Oggetto{
+        char descrizione[40];
+        bool preso; //true = preso
+        Oggetto*link = nullptr;
+    };
+    Oggetto*head = nullptr;
 public:
-
-    History() : evento(nullptr) {}
-
-    friend ostream &operator<<(ostream& os, const History& history) {
-        os << "-- HISTORY --" << endl;
-        Event*temp = new Event;
-        temp = history.evento;
-        while (temp != nullptr) {
-            if (history.evento->data > 0) {
-                os << history.evento->data << " AD" <<  endl;
-            }
-            else { // data negativa
-                os << (-history.evento->data) + 1 << " BC" << endl;
-            }
-            for (int i = 0; i < 30; i++) {
-                if (history.evento->descr[i] == '\0') {
-                    break;
-                }
-                os << history.evento->descr[i];
-            }
-            os << '\n' << "-----" << endl;
-            //go to the next
-            temp = temp->link;
-        }
-        return os;
-    }
+    explicit OggettiViaggio() = default;
 };
 
+int main(){
 
-
-
-
-
-
-
-
-
-int main()
-{
     cout << "--- PRIMA PARTE ---" << endl;
-    cout << "Test del costruttore:" << endl;
-    History hist;
-    cout << hist << endl; /*
-    cout << "Test della record:" << endl;
-    hist.record(503, "aaa");
-    hist.record(599, "bbb");
-    hist.record(-107, "ccc");
-    hist.record(405, "ddd");
-    hist.record(711, "eee");
-    hist.record(902, "fff");
-    cout << hist << endl;
-    cout << "Test della forget:" << endl;
-    hist.forget("aaa");
-    hist.forget("ccc");
-    cout << hist << endl;
-    cout << "Test del distruttore:" << endl;
+    cout << "Test costruttore e funzione aggiungi" << endl;
+    OggettiViaggio ov; /*
+    ov.aggiungi("Caricatore");
+    ov.aggiungi("Cuffie");
+    ov.aggiungi("Macchina fotografica");
+    ov.aggiungi("Documenti");
+    ov.aggiungi("Biglietti aereo");
+    ov.aggiungi("Vestiti");
+    cout << ov << endl;
+
+    cout << "Test funzione prendi" << endl;
+    ov.prendi("Documenti");
+    ov.prendi("Macchina fotografica");
+    ov.prendi("Caricatore");
+    cout << ov << endl;
+
+    cout << "Test funzione viaggia" << endl;
+    ov.viaggia();
+    cout << ov << endl;
+
+    cout << "Test costruttore di copia" << endl;
+    OggettiViaggio ov2 = ov;
+    ov2.aggiungi("Oggetto 1");
+    ov2.aggiungi("Oggetto 2");
+    ov2.aggiungi("Oggetto 3");
+    cout << ov2 << endl;
+
+
+    cout << "--- SECONDA PARTE ---" << endl;
+    cout << "Test eventuale distruttore" << endl;
     {
-        History hist2;
-        hist2.record(500, "aaa");
-        hist2.record(400, "bbb");
-        hist2.record(600, "ccc");
+        OggettiViaggio ov3;
+        ov3.aggiungi("Oggetto 1");
+        ov3.aggiungi("Oggetto 2");
+        ov3.aggiungi("Oggetto 3");
     }
-    cout << "(oggetto distrutto)" << endl;
-    // SECONDA PARTE
-    cout << endl << "--- SECONDA PARTE ---" << endl;
-    cout << "Test longest_period:" << endl;
-    cout << hist.longest_period() << endl;
-    cout << "Test forget overloaded:" << endl;
-    hist.forget(500, 750);
-    cout << hist << endl;
-    cout << "Test create_alternative:" << endl;
-    History hist3;
-    hist3.record(-75, "ggg");
-    hist3.record(507, "hhh");
-    hist3.record(753, "iii");
-    hist3.record(821, "jjj");
-    History *p_hist4 = create_alternative(hist, 450, hist3);
-    cout << *p_hist4 << endl;
-    delete p_hist4;
-    return 0; */
+    cout << "Distruttore chiamato" << endl;
+
+    cout << "Test operatore +=" << endl;
+    ov.prendi("Cuffie");
+    ov.prendi("Macchina fotografica");
+    OggettiViaggio ov3;
+    ov3.aggiungi("Spazzolino");
+    ov3.aggiungi("Dentifricio");
+    ov3.aggiungi("Occhiali da sole");
+    ov3.prendi("Occhiali da sole");
+    ov += ov3;
+    cout << ov << endl;
+
+    cout << "Test funzione rimuovi" << endl;
+    ov.rimuovi("Cuffie");
+    ov.rimuovi("Macchina fotografica");
+    ov.rimuovi("Caricatore");
+    cout << ov << endl;
+
+    cout << "Test operatore di negazione logica" << endl;
+    ov.prendi("Vestiti");
+    ov.prendi("Documenti");
+    cout << !ov << endl;
+
+
+    cout << "--- TERZA PARTE ---" << endl;
+    cout << "Test funzione aggiungi con input non validi" << endl;
+    ov.aggiungi("Oggetto di lunghezza maggiore di quaranta caratteri"); // non aggiunge
+    ov.aggiungi(""); // lo deve aggiungere
+    ov.aggiungi("Spazzolino"); // gia' presente
+    ov.aggiungi("Occhiali da sole"); // gia' presente
+    cout << ov << endl;
+
+    cout << "Test funzione prendi con input non validi" << endl;
+    ov.prendi("Oggetto fuori lista"); // non prende
+    ov.prendi("Occhiali da sole"); // oggetto gia' preso
+    cout << ov << endl;
+
+    cout << "Test funzione rimuovi" << endl;
+    ov.rimuovi("Oggetto fuori lista"); // non rimuove
+    ov.rimuovi("");
+    cout << ov << endl;
+
+    cout << "Test operatore negazione logica" << endl;
+    ov.prendi("Biglietti aereo");
+    ov.prendi("Spazzolino");
+    ov.prendi("Dentifricio");
+    const OggettiViaggio ov4 = ov;
+    cout << ov4 << endl << !ov4 << endl;
+
+    cout << "Test operatore +=" << endl;
+    ov.viaggia();
+    ov.prendi("Spazzolino");
+    ov.prendi("Dentifricio");
+    OggettiViaggio ov5;
+    ov5.aggiungi("Documenti");
+    ov5.aggiungi("Spazzolino");
+    ov5.aggiungi("Biglietti aereo");
+    ov5.prendi("Biglietti aereo");
+    ov5.aggiungi("Phono");
+    ov += ov5;
+    cout << ov << endl;
+    */
+    return 0;
 }
