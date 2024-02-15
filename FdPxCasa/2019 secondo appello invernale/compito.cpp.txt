@@ -1,0 +1,79 @@
+//
+// Created by squer on 1/24/2024.
+//
+
+#include "compito.h"
+
+Monitor::Monitor(int n) {
+   if (n <= 0) {return;}
+   maxMess = n;
+}
+void Monitor::inserisci(char stringa[maxLen]) {
+    Mess*temp = new Mess;
+    strncpy(temp->descr, stringa, maxLen);
+    //
+    temp->link = head;
+    head = temp;
+    messAttuali++;
+    if (messAttuali == maxMess +1) {
+        while (temp->link->link != nullptr) {
+            temp = temp->link;
+        }
+        delete temp->link;
+        temp->link = nullptr;
+    }
+}
+
+ostream& operator<<(ostream& os, const Monitor&thisMonitor) {
+    os << "[" << thisMonitor.maxMess << "]" << endl;
+    Monitor::Mess*temp = thisMonitor.head;
+    while (temp != nullptr) {
+        os << temp->descr << endl;
+        temp = temp->link;
+    }
+
+    return os;
+}
+Monitor::Monitor(const Monitor &m1) {
+    maxMess = m1.maxMess;
+    messAttuali = m1.messAttuali;
+    if (m1.head == nullptr) { return; }
+    //crea la head
+    head = new Mess;
+    //copia la head
+    strcpy(head->descr, m1.head->descr);
+    //continuo a copiare al lista 1
+    Mess*temp1 = m1.head->link;
+    Mess*temp2 = head;
+    while(temp1 != nullptr) {
+        temp2->link = new Mess;
+        strcpy(temp2->link->descr, temp1->descr);
+
+        temp1 = temp1->link;
+        temp2 = temp2->link;
+    }
+}
+Monitor operator+(const Monitor &m1, const Monitor &m2) {
+    Monitor m3(m1);
+    m3.maxMess += m2.maxMess;
+    //ho creato m3 con i messaggi di m1 e i maxMess di m1+m2
+    Monitor m4(m2);
+    //ho creato m4 uguale a m2
+    //ora unisco le liste di m3 e m4
+    Monitor::Mess*temp = m3.head;
+    while (temp->link != nullptr) {
+        temp = temp->link;
+    }
+    //sono arrivato in fondo alla lista di m3
+    temp->link = m4.head;
+    return m3;
+}
+
+Monitor::~Monitor() {
+    while (head != nullptr) {
+        Mess*temp = head;
+        head = head->link;
+        delete temp;
+    }
+}
+

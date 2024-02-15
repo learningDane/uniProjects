@@ -1,0 +1,39 @@
+#include <iostream>
+#include "compito.h"
+using namespace std;
+
+int main()
+{
+    Timeline tl;
+    cout << tl << endl;
+
+    tl.pubblica("gatto.png", 0);
+    tl.pubblica("famiglia.jpg", 0);
+    tl.pubblica("mare.jpg", 1);
+    tl.pubblica("cane.png", 0);
+    tl.pubblica("montagna.png", 1);
+    tl.pubblica("gatto.png", 0);
+    cout << tl;
+
+    tl.cancella("mare.jpg");
+    tl.cancella("gatto.png");
+    cout << tl;
+
+
+    // SECONDA PARTE
+    tl.mettiInEvidenza("famiglia.jpg");
+    cout << tl;
+
+    !tl;
+    cout << tl;
+
+    {
+        Timeline tl1;
+        tl1.pubblica("sport.png", 0);
+        tl1.pubblica("vacanza.jpg", 1);
+        tl1.pubblica("ufficio.png", 0);
+        cout << tl1;
+    }
+    
+    return 0;
+}

@@ -1,0 +1,33 @@
+//
+// Created by squer on 1/24/2024.
+//
+#include <iostream>
+#define maxLen 11
+#include<cstring>
+using namespace std;
+
+#ifndef TEMPESEGUIREDESKTOP_COMPITO_H
+#define TEMPESEGUIREDESKTOP_COMPITO_H
+
+
+class Monitor {
+private:
+    struct Mess{
+        char descr[maxLen] = "";
+        Mess*link = nullptr;
+    };
+    int maxMess = 3;
+    int messAttuali = 0;
+    Mess*head = nullptr;
+public:
+    Monitor(int n);
+    void inserisci(char stringa[maxLen]);
+    friend ostream& operator<<(ostream& os, const Monitor&thisMonitor);
+    Monitor(const Monitor&m1);
+    friend Monitor operator+(const Monitor&m1, const Monitor&m2);
+
+    virtual ~Monitor();
+};
+
+
+#endif //TEMPESEGUIREDESKTOP_COMPITO_H

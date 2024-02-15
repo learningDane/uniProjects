@@ -3,4 +3,6 @@ project(TempEseguireDesktop)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(TempEseguireDesktop main.cpp)
+add_executable(TempEseguireDesktop main.cpp
+        compito.cpp
+        compito.h)
