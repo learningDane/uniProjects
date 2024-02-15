@@ -1,0 +1,69 @@
+--- PRIMA PARTE ---
+Test costruttore
+========
+|      |
+|      |
+|      |
+|      |
+|      |
+|      |
+|      |
+|      |
+|      |
+|      |
+========
+Test funzione fire
+========
+|RRYY  |
+|B  Y  |
+|B  G  |
+|      |
+|      |
+|      |
+|      |
+|      |
+|      |
+|      |
+========
+Test operatore int
+Altezza: 3
+--- SECONDA PARTE ---
+Test funzionalita' scoppio bolle
+========
+|RR    |
+|R  Y  |
+|   G  |
+|   G  |
+|      |
+|      |
+|      |
+|      |
+|      |
+|      |
+========
+Test funzione scroll
+========
+|======|
+|======|
+|RR    |
+|R  Y  |
+|   G  |
+|   G  |
+|      |
+|      |
+|      |
+|      |
+========
+Test funzione compact
+========
+|======|
+|======|
+|RR Y  |
+|R  G  |
+|   G  |
+|      |
+|      |
+|      |
+|      |
+|      |
+========
