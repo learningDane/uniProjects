@@ -52,7 +52,6 @@ ostream &operator<<(ostream &os, const SpaceAsteroids &questo) {
                     os << "X";
                 }
             }
-            os << "\t";
         }
         os << endl;
     }
