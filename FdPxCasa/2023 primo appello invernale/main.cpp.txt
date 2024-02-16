@@ -1,0 +1,196 @@
+#include <iostream>
+using namespace std;
+
+class CampoMinato{
+private:
+    int lato;
+    int**campo;
+    bool ready = false;
+    bool iniziato = false;
+    int mine = 0;
+    int vinto = 0;
+public:
+    explicit CampoMinato(const int lato) {
+        this->lato = lato;
+        this->campo = new int*[lato];
+        for (int i = 0; i < lato; i++) {
+            this->campo[i] = new int[lato];
+            for (int j = 0; j < lato; j++) {
+                this->campo[i][j]= 0;
+            }
+        }
+    }
+    virtual ~CampoMinato() {
+        for (int i = 0; i < lato ; i++) {
+            delete[] campo[i];
+        }
+        delete[] campo;
+    }
+    bool aggiungi_mina(int riga, int colonna) {
+        if (iniziato) {return false;}
+        campo[riga][colonna] = -1;
+        ready = true;
+        mine++;
+        return true;
+    }
+    void scopri(int riga, int colonna) {
+        if (!ready || riga < 0 || riga > lato - 1 || colonna< 0 || colonna > lato - 1) {return;}
+        if (!iniziato) { iniziato = true;}
+        if (campo[riga][colonna] < 0) { vinto = -1; }
+        else if (campo[riga][colonna] == 0) {
+            campo[riga][colonna] = 1;
+            int caselleDaScoprire = 0;
+            for (int i = 0; i < lato; i++) {
+                for (int j = 0; j < lato; j++) {
+                    if (campo[i][j] == 0) {
+                        caselleDaScoprire++;
+                    }
+                }
+            }
+            if (caselleDaScoprire == 0) {
+                vinto = +1;
+            }
+        }
+        cout << this;
+    }
+    static int mineAdiacenti(int riga, int colonna, CampoMinato cm) {
+        int mineAdiacenti = 0;
+        for (int r = riga - 1; r <= riga + 1; r++) {
+            for (int c = colonna -1 ; c <= colonna + 1; c++) {
+                if (r != -1 && r != cm.lato+1 && c != -1 && c != cm.lato+1) {
+                    if (cm.campo[r][c] == -1) {
+                        mineAdiacenti++;
+                    }
+                }
+            }
+        }
+        if (cm.campo[riga][colonna] == -1) { mineAdiacenti--; }
+        return mineAdiacenti;
+    }
+    friend ostream& operator<<(ostream& os,const CampoMinato& cm) {
+        if (cm.vinto == -1) {
+            os <<"Game over" << '\n';
+            return os;
+        }
+        else if (cm.vinto == + 1) {
+            os <<"Vittoria!" << '\n';
+            return os;
+        }
+        os << "Campo Minato " << cm.lato <<'x'<< cm.lato << " - Mine da trovare: " << cm.mine << endl;
+        for (int r = 0; r < cm.lato; r++) {
+            for (int c = 0; c < cm.lato; c++) {
+                if (cm.campo[r][c] > 0) { os << mineAdiacenti(r,c, cm)<< ' ';}
+                else { os << "X ";}
+            }
+            os << '\n';
+        }
+        return os;
+    }
+};
+
+int main() {
+
+    cout << "--- PRIMA PARTE ---" << endl<<endl;
+
+    cout<<"Test del costruttore:"<<endl;
+    CampoMinato c(3);
+    cout << c << endl;
+
+    cout<<"Test della aggiungi_mina:"<<endl;
+    c.aggiungi_mina(1, 2);
+    c.aggiungi_mina(2, 1);
+    cout << c << endl;
+
+    cout<<"Test della scopri:"<<endl;
+    c.scopri(2, 2);
+    cout << c << endl;
+    /*
+    c.scopri(0, 1);
+    cout << c << endl;
+
+    c.scopri(1,2);
+    cout << c << endl;
+
+
+    cout << endl << "--- SECONDA PARTE ---" << endl<<endl;
+
+    cout<<"Test del costruttore di copia:"<<endl;
+    CampoMinato c2(c);
+    cout << c2 << endl;
+
+    cout<<"Altri Test della scopri:"<<endl;
+    c2.scopri(2, 2);
+    c2.scopri(0, 0);
+    cout << c2 << endl;
+    c2.scopri(2, 0);
+    c2.scopri(0, 2);
+    cout << c2 << endl;
+
+    cout<<"Test dell'operatore +:"<<endl;
+    CampoMinato c6 = c + c2;
+    c6.scopri(5, 5);
+    c6.scopri(2, 2);
+    cout << c6 << endl;
+
+    {
+        cout<<"Test del distruttore:"<<endl;
+        CampoMinato c7(9);
+    }
+
+
+    cout << endl << "--- TERZA PARTE ---" << endl<<endl;
+
+    cout<<"Altro test della scopri:"<<endl;
+    CampoMinato c4(4);
+    c4.scopri(3,1); // scopri su gioco non avviabile, non deve cambiare nulla
+    cout << c4 << endl;
+
+    cout <<"Altri test della aggiungi_mina:"<<endl;
+    cout << c4.aggiungi_mina(0, 1) << ' ';          // queste mine devono essere aggiunte perchÃ© la
+    cout << c4.aggiungi_mina(1, 1) << ' ';          // precedente scopri Ã¨ stata invocata su un gioco
+    cout << c4.aggiungi_mina(2, 3) << endl << endl; // non avviabile
+
+    cout<<"Altro test operatore +:"<<endl;
+    CampoMinato c5 = c2 + c4;
+    cout << c5 << endl;
+
+    cout <<"Altri test della aggiungi_mina:"<<endl;
+    cout << c5.aggiungi_mina(2, 4) << ' ';
+    cout << c5.aggiungi_mina(2, 2) << endl << endl;
+
+    cout<<"Altri test della scopri:"<<endl;
+    c5.scopri(0, 6);
+    c5.scopri(5, 1); // parecchie celle vengono scoperte
+    cout << c5 << endl;
+
+    cout<<"Altri test della scopri:"<<endl;
+    CampoMinato c3(c2);
+    c3.scopri(-1, 2);
+    c3.scopri(0, 3); // le scopri devono fallire perchÃ© fuori bound
+    cout << c3 << endl;
+
+    cout <<"Altri test della aggiungi_mina:"<<endl;
+    cout << c3.aggiungi_mina(2, 2) << ' '; // La mina deve comunque esser piazzata perchÃ© le scopri hanno fallito
+
+    cout << c3.aggiungi_mina(2, -1) << ' '; // queste aggiungi_mina sono fuori bound
+    cout << c3.aggiungi_mina(3, 1) << ' ';
+    cout << c3.aggiungi_mina(1, 2) << endl << endl;
+    cout << c3 << endl;
+
+    cout<<"Altri test della scopri:"<<endl;
+    c3.scopri(2, 0); // Test di vittoria per ricorsione
+    c3.scopri(0, 2);
+    c3.scopri(0, 0);
+    cout << c2 << endl;
+
+    // Test di continuazione su un gioco perso che permetterebbe di vincere
+    c.scopri(2, 0);
+    c.scopri(0, 2);
+    cout << c << endl;
+
+    // Test di continuazione su gioco vinto che porterebbe a perdere
+    c3.scopri(2, 2);
+    cout << c3 << endl;
+    */
+    return 0;
+}

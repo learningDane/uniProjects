@@ -1,0 +1,91 @@
+//
+// Created by squer on 1/24/2024.
+//
+
+#include "compito.h"
+#include <cstring>
+Timeline::Timeline() = default;
+ostream& operator<<(ostream& os,const Timeline& This) {
+    os << "-----" << endl;
+    Timeline::Foto*temp = This.head;
+    while (temp != nullptr) {
+        if (temp->inEvidenza == 1) { os << "(*)"; }
+        os << temp->descrizione << endl;
+        temp = temp->link;
+    }
+    os << "-----" << endl;
+    return os;
+}
+void Timeline::pubblica(const char*nome, int ev) {
+    if (nome == nullptr) {return;}
+    Foto*newF = new Foto;
+    newF->descrizione = new char[strlen(nome) + 1];
+    newF->inEvidenza = ev;
+    strcpy(newF->descrizione, nome);
+    if (ev == 1) {
+        newF->link = head;
+        head = newF;
+    }
+    else {
+        if (head == nullptr) {
+            head = newF;
+            return;
+        }
+        if (head->inEvidenza != 1) {
+            newF->link = head;
+            head = newF;
+            return;
+        }
+        Foto*temp = head;
+        while (temp->link != nullptr && temp->link->inEvidenza == 1) {
+            temp = temp->link;
+        }
+        newF->link = temp->link;
+        temp->link = newF;
+    }
+}
+void Timeline::cancella(const char*nome) {
+    Foto*temp = head;
+    while (temp->link != nullptr && strcmp(temp->link->descrizione, nome) != 0) {
+        temp->link = temp->link->link;
+    }
+    if (temp->link == nullptr) {return;}
+    Foto*temp2 = temp->link;
+    temp->link = temp2->link;
+    delete[] temp2->descrizione;
+    delete temp2;
+}
+void Timeline::mettiInEvidenza(const char*nome) {
+    if (strcmp(head->descrizione, nome) == 0) {
+        head->inEvidenza = 1;
+        return;
+    }
+    Foto*temp = head;
+    while (temp->link != nullptr && (strcmp(temp->link->descrizione, nome) != 0)) {
+        temp = temp->link;
+    }
+    if (strcmp(temp->link->descrizione, nome) == 0) {
+        if (temp->link->inEvidenza == 1) { return;}
+        Foto*newHead = temp->link;
+        temp->link = newHead->link;
+        newHead->link = head;
+        head = newHead;
+        head->inEvidenza = 1;
+    }
+}
+void Timeline::operator!() {
+    while (head->inEvidenza == 1) {
+        Foto *temp = head;
+        head = head->link;
+        delete[] temp->descrizione;
+        delete temp;
+    }
+}
+Timeline::~Timeline() {
+    while(head != nullptr) {
+        Foto*temp = head;
+        head = head->link;
+        delete[] temp->descrizione;
+        delete temp;
+    }
+}

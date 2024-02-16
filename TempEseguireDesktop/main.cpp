@@ -1,236 +1,184 @@
 #include <iostream>
-#include <cstring>
+#include "compito.h"
+
 using namespace std;
 
-class OggettiViaggio{
-private:
-    struct Oggetto{
-        char descrizione[40];
-        bool preso = false; //true = preso
-        Oggetto*link = nullptr;
-    };
-    Oggetto*head = nullptr;
-public:
-    explicit OggettiViaggio() = default;
-    friend ostream& operator<<(ostream& os, const OggettiViaggio ov) {
-        if (ov.head == nullptr) { return os; }
-        Oggetto* temp = ov.head;
-        while (temp != nullptr) {
-            os << ((temp->preso) ? "X " : "- ") << temp->descrizione << endl;
-            temp = temp->link;
-        }
-        os << endl;
-        return os;
-    }
-    void aggiungi(char descr[]) {
-        if ( strlen(descr) > 40) { return;}
-        if (head == nullptr) {
-            head = new Oggetto;
-            strcpy(head->descrizione, descr);
-            return;
-        }
-        Oggetto*temp = head;
-        while ( temp->link != nullptr) {
-            if ( strcmp(temp->descrizione, descr) == 0) { return; }
-            temp = temp->link;
-        }
-        temp->link = new Oggetto;
-        temp=temp->link;
-        strcpy(temp->descrizione, descr);
-    }
-    void prendi(char descr[]) {
-        Oggetto*temp = head;
-        while (temp != nullptr) {
-            if ( strcmp(descr, temp->descrizione) == 0) {
-                temp->preso = true;
-                return;
-            }
-            temp = temp->link;
-        }
-    }
-    void viaggia() {
-        Oggetto*temp = head;
-        while (temp != nullptr) {
-            temp->preso = false;
-            temp = temp->link;
-        }
-    }
-    OggettiViaggio(const OggettiViaggio& altroOv) {
-        // Initialize head to nullptr for the new object
-        head = nullptr;
+int main() {
 
-        if (altroOv.head == nullptr) {
-            return;
-        }
+    cout<<endl<<"--- PRIMA PARTE ---" <<endl<<endl;
 
-        // Copy the first element
-        head = new Oggetto;
-        strcpy(head->descrizione, altroOv.head->descrizione);
-        head->preso = altroOv.head->preso;
+    cout<<"Test del costruttore:" << endl;
+    SpaceAsteroids s(6, 7, 3);
+    cout << s << endl;
 
-        // Copy the rest of the list
-        Oggetto* altroTemp = altroOv.head->link;
-        Oggetto* temp = head;
+    cout << "Test della colloca_asteroide:" << endl;
+    cout << s.colloca_asteroide(1);
+    cout << s.colloca_asteroide(4);
+    cout << s.colloca_asteroide(7);
+    cout << endl << endl;
+    cout << s << endl;
 
-        while (altroTemp != nullptr) {
-            temp->link = new Oggetto;
-            temp = temp->link;
-            strcpy(temp->descrizione, altroTemp->descrizione);
-            temp->preso = altroTemp->preso;
-            altroTemp = altroTemp->link;
-        }
-
-        temp->link = nullptr; // Ensure the last node points to null
-    }
-    virtual ~OggettiViaggio() {
-        while (head != nullptr) {
-            Oggetto*temp = head;
-            head = head->link;
-            delete temp;
-        }
-    }
-    void rimuovi(char descr[]) {
-        if (strlen(descr) > 40) {return;}
-        Oggetto*temp = head;
-        if ( strcmp(head->descrizione,descr) == 0) {
-            head = head->link;
-            delete temp;
-            return;
-        }
-        Oggetto*temp2 = temp->link;
-        while (temp2 !=nullptr) {
-            if ( strcmp(temp2->descrizione,descr) == 0 ) {
-                temp->link = temp2->link;
-                delete temp2;
-                return;
-            }
-            temp = temp->link;
-            temp2 = temp2->link;
-        }
-    }
-    void operator+=(OggettiViaggio altroOv) {
-        Oggetto*temp=head;
-        while(temp != nullptr) {
-            temp = temp->link;
-        }
-        temp = altroOv.head;
-    }
-    OggettiViaggio operator!() const {
-        OggettiViaggio result;
-        Oggetto*temp = head;
-
-        while (temp != nullptr) {
-            if (!temp->preso) {
-                result.aggiungi(temp->descrizione);
-            }
-            temp = temp->link;
-        }
-
-        return result;
-    }
-};
-
-int main(){
-
-    cout << "--- PRIMA PARTE ---" << endl;
-    cout << "Test costruttore e funzione aggiungi" << endl;
-    OggettiViaggio ov;
-    ov.aggiungi("Caricatore");
-    ov.aggiungi("Cuffie");
-    ov.aggiungi("Macchina fotografica");
-    ov.aggiungi("Documenti");
-    ov.aggiungi("Biglietti aereo");
-    ov.aggiungi("Vestiti");
-    cout << ov << endl;
-
-    cout << "Test funzione prendi" << endl;
-    ov.prendi("Documenti");
-    ov.prendi("Macchina fotografica");
-    ov.prendi("Caricatore");
-    cout << ov << endl;
-
-    cout << "Test funzione viaggia" << endl;
-    ov.viaggia();
-    cout << ov << endl;
-
-    cout << "Test costruttore di copia" << endl;
-    OggettiViaggio ov2 = ov;
-    ov2.aggiungi("Oggetto 1");
-    ov2.aggiungi("Oggetto 2");
-    ov2.aggiungi("Oggetto 3");
-    cout << ov2 << endl;
+    cout << "Test della avanzamento_asteroidi:" << endl;
+    s.avanza();
+    cout << s << endl;
 
 
-    cout << "--- SECONDA PARTE ---" << endl;
-    cout << "Test eventuale distruttore" << endl;
-    {
-        OggettiViaggio ov3;
-        ov3.aggiungi("Oggetto 1");
-        ov3.aggiungi("Oggetto 2");
-        ov3.aggiungi("Oggetto 3");
-    }
-    cout << "Distruttore chiamato" << endl;
+    cout<<endl<<"--- SECONDA PARTE ---" <<endl<<endl;
 
-    cout << "Test operatore +=" << endl;
-    ov.prendi("Cuffie");
-    ov.prendi("Macchina fotografica");
-    OggettiViaggio ov3;
-    ov3.aggiungi("Spazzolino");
-    ov3.aggiungi("Dentifricio");
-    ov3.aggiungi("Occhiali da sole");
-    ov3.prendi("Occhiali da sole");
-    ov += ov3;
-    cout << ov << endl;
+    cout << "Test operatore <<=:" << endl;
+    s <<= 5;
+    cout << s << endl;
 
-    cout << "Test funzione rimuovi" << endl;
-    ov.rimuovi("Cuffie");
-    ov.rimuovi("Macchina fotografica");
-    ov.rimuovi("Caricatore");
-    cout << ov << endl;
+    cout << "Test operatore |=:" << endl;
+    s |= 2;
+    cout << s << endl;
 
-    cout << "Test operatore di negazione logica" << endl;
-    ov.prendi("Vestiti");
-    ov.prendi("Documenti");
-    cout << !ov << endl;
+    cout << "Test della avanza:" << endl;
+    s.avanza();
+    cout << s << endl;
+
+    cout << "Altro test della avanza:" << endl;
+    s.avanza();
+    cout << s << endl;
 
 
-    cout << "--- TERZA PARTE ---" << endl;
-    cout << "Test funzione aggiungi con input non validi" << endl;
-    ov.aggiungi("Oggetto di lunghezza maggiore di quaranta caratteri"); // non aggiunge
-    ov.aggiungi(""); // lo deve aggiungere
-    ov.aggiungi("Spazzolino"); // gia' presente
-    ov.aggiungi("Occhiali da sole"); // gia' presente
-    cout << ov << endl;
+    cout<<endl<<"--- TERZA PARTE ---" <<endl<<endl;
 
-    cout << "Test funzione prendi con input non validi" << endl;
-    ov.prendi("Oggetto fuori lista"); // non prende
-    ov.prendi("Occhiali da sole"); // oggetto gia' preso
-    cout << ov << endl;
+    cout << "Test costruttore con dimensioni scorrette:" << endl;
+    SpaceAsteroids s1(2, 6, 8);
+    cout << s1 << endl;
 
-    cout << "Test funzione rimuovi" << endl;
-    ov.rimuovi("Oggetto fuori lista"); // non rimuove
-    ov.rimuovi("");
-    cout << ov << endl;
+    cout << "Test costruttore con energia scorretta:" << endl;
+    SpaceAsteroids s2(5, 5, -1);
+    cout << s2 << endl;
 
-    cout << "Test operatore negazione logica" << endl;
-    ov.prendi("Biglietti aereo");
-    ov.prendi("Spazzolino");
-    ov.prendi("Dentifricio");
-    const OggettiViaggio ov4 = ov;
-    cout << ov4 << endl << !ov4 << endl;
+    cout << "Test colloca_asteroide scorretta:" << endl;
+    cout << s1.colloca_asteroide(0);
+    cout << s1.colloca_asteroide(7);
+    cout << s1.colloca_asteroide(9);
+    cout << s1.colloca_asteroide(9);
+    cout << s1.colloca_asteroide(10);
+    cout << endl << endl;
 
-    cout << "Test operatore +=" << endl;
-    ov.viaggia();
-    ov.prendi("Spazzolino");
-    ov.prendi("Dentifricio");
-    OggettiViaggio ov5;
-    ov5.aggiungi("Documenti");
-    ov5.aggiungi("Spazzolino");
-    ov5.aggiungi("Biglietti aereo");
-    ov5.prendi("Biglietti aereo");
-    ov5.aggiungi("Phono");
-    ov += ov5;
-    cout << ov << endl;
+    cout << "Test avanza_asteroidi con uscita da schermo:" << endl;
+    s2.colloca_asteroide(1);
+    s2.colloca_asteroide(2);
+    for(unsigned i = 0; i < 4; ++i)
+        s2.avanza();
+    s2.colloca_asteroide(3);
+    cout << s2 << endl;
+    s2.avanza();
+    cout << s2 << endl;
+
+    cout << "Test avanza_asteroidi con sconfitta e aggiornamento record:" << endl;
+    for(unsigned i = 0; i < 3; ++i)
+        s2.avanza();
+    cout << s2 << endl;
+
+    cout << "Test operatore >>= con spostamento fuori schermo:" << endl;
+    s1.colloca_asteroide(5);
+    s1 >>= 10;
+    cout << s1 << endl;
+
+    cout << "Test operatore <<= e >>= prima della avanza:" << endl;
+    s1 <<= 6;
+    s1 >>= 2;
+    cout << s1 << endl;
+
+    cout << "Test operatore >>= e sconfitta:" << endl;
+    s1.avanza();
+    s1 <<= 7;
+    for(unsigned i = 0; i < 5; ++i)
+        s1.avanza();
+    s1 >>= 4;
+    cout << s1 << endl;
+
+    cout << "Test laser su asteroide con scomparsa e laser che distrugge asteroide a due righe di distanza:" << endl;
+    s.colloca_asteroide(1);
+    cout << s << endl;
+    for(unsigned i = 3; i <= 8; ++i)
+        s.colloca_asteroide(i);
+    cout << s << endl;
+    s >>= 3;
+    cout << s << endl;
+    s.avanza();
+    cout << s << endl;
+    s |= 1;
+    cout << s << endl;
+
+    cout << "Test utilizzo laser prima della avanza e laser avente meno energia di quella richiesta:" << endl;
+    for(unsigned i = 3; i <= 8; ++i)
+        s.colloca_asteroide(i);
+    s |= 3;
+    s >>= 2;
+    s.avanza();
+    for(unsigned i = 1; i <= 8; ++i)
+        s.colloca_asteroide(i);
+    s.avanza();
+    s |= 4;
+    cout << s << endl;
+
+    cout << "Test laser che distrugge due asteroidi consecutivamente e lancio di due laser consecutivi:" << endl;
+    for(unsigned i = 1; i <= 8; ++i)
+        s.colloca_asteroide(i);
+    s.avanza();
+    s |= 2;
+    s <<= 4;
+    cout << s << endl;
+
+    cout << "Test laser senza energia:" << endl;
+    for(unsigned i = 1; i <= 5; ++i)
+        s.colloca_asteroide(i);
+    s.avanza();
+    s |= 0;
+    s <<= 1;
+    s |= 1;
+    s.avanza();
+    cout << s << endl;
+
+    cout << "Test uscita laser dallo schermo:" << endl;
+    for(unsigned i = 1; i <= 9; ++i)
+        s1.colloca_asteroide(i);
+    s1 |= 5;
+    s1.avanza();
+    for(unsigned i = 1; i <= 9; ++i)
+        s1.colloca_asteroide(i);
+    s1 >>= 3;
+    s1 |= 2;
+    s1.avanza();
+    for(unsigned i = 1; i <= 9; ++i)
+        s1.colloca_asteroide(i);
+    s1 <<= 7;
+    s1 |= 2;
+    s1.avanza();
+    for(unsigned i = 1; i <= 9; ++i)
+        s1.colloca_asteroide(i);
+    s1 >>= 2;
+    s1 |= 2;
+    s1.avanza();
+    for(unsigned i = 1; i <= 3; ++i)
+        s1.colloca_asteroide(i);
+    s1 <<= 1;
+    s1 |= 1;
+    s1.avanza();
+    for(unsigned i = 1; i <= 3; ++i)
+        s1.colloca_asteroide(i);
+    s1 <<= 1;
+    s1 |= 1;
+    s1.avanza();
+    cout << s1 << endl;
+
+    cout << "Test avanza con sconfitta che prima aggiorna il record per gli asteroidi distrutti" << endl;
+    cout << s1 << endl;
+    for(unsigned i = 6; i <= 9; ++i)
+        s1.colloca_asteroide(i);
+    cout << s1 << endl;
+    s1 |= 1;
+    cout << s1 << endl;
+    s1 >>= 1;
+    cout << s1 << endl;
+    s1.avanza();
+    cout << s1 << endl;
 
     return 0;
 }
