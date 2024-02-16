@@ -29,21 +29,140 @@ bool SpaceAsteroids::colloca_asteroide(int colonna) { //colonna è indicizzata a
     return true;
 }
 void SpaceAsteroids::avanza_asteroidi() {
-
+    if (mappa[posizioneX][1] == 1) {
+        punteggioMaxGlob = punteggioMaxGlob > punteggio ? punteggioMaxGlob : punteggio;
+        gameOver();
+        return;
+    }
+    for (int i = 0; i < larghezza; i++) {
+        for (int j = 0; j < altezza - 1; j++) {
+            if (j == 0) {
+                mappa[i][j] = 0;
+            }
+            mappa[i][j] = mappa[i][j+1];
+            mappa[i][j+1] = 0;
+        }
+    }
+    mappa[posizioneX][0] = -1;
+    punteggio++;
+    punteggioMaxGlob = punteggioMaxGlob > punteggio ? punteggioMaxGlob : punteggio;
 }
 void SpaceAsteroids::avanza() {
-    //faccio avanzare i laser di due e poi lo riporto indietro nella avanza_asteroidi
-    
-
-    if (energiaRim < energiaMax) { energiaRim++; }
     possoSpostare = true;
     possoSparare = true;
+    if (energiaRim < energiaMax) { energiaRim++; }
+    //faccio avanzare i laser di due e poi lo riporto indietro nella avanza_asteroidi
+    for (int j = altezza - 1; j > 0; j--) {
+        for (int i = 0; i < larghezza; i ++) {
+            if (mappa[i][altezza - 1] > 10) {mappa[i][altezza - 1] = 0; }
+            if (mappa[i][altezza - 1] > 10) {mappa[i][altezza - 1] = 0; }
+            for (int a = 0; a < 2; a++) {
+                if (mappa[i][j + a - 1] > 10) {
+                    if (j+a < altezza) {
+                        if (mappa[i][j+a] == 1) { punteggio++;}
+                        mappa[i][j+a] = mappa[i][j + a - 1] - mappa[i][j+a];
+                        mappa[i][j + a - 1] = 0;
+                        mappa[i][j + a] = mappa[i][j + a] > 10 ? mappa[i][j + a] : 0;
+                    }
+                }
+            }
+        }
+    }
     avanza_asteroidi();
 }
 
+ostream& operator<<(ostream& os, const SpaceAsteroids& questo) {
+    cout << "Punteggio: " << questo.punteggio << endl;
+    cout << "Record: " << punteggioMaxGlob << endl;
+    cout << "Energia: " << questo.energiaRim << endl;
 
+    for (int j = questo.altezza ; j > -1; j--) {
+        for (int i = 0; i < questo.larghezza; i++) {
+            if (j == questo.altezza) {
+                os << "_";
+            }
+            else if (j == 0) {
+                if (i == questo.posizioneX) {
+                    os << "A";
+                }
+                else if (questo.mappa[i][j] == 1) {
+                    os << "X";
+                }
+                else {
+                    os << "_";
+                }
+            }
+            else {
+                if (questo.mappa[i][j] == 1) {
+                    os << "X";
+                }
+                else if (questo.mappa[i][j] == 0) {
+                    os << " ";
+                }
+                else if(questo.mappa[i][j] > 10) {
+                    os << "|";
+                }
+            }
+        }
+        os << endl;
+    }
+    os << endl;
 
+    return os;
+}
 
+SpaceAsteroids &SpaceAsteroids::operator<<=(int n) {
+    if (!possoSpostare) { return *this;} if (posizioneX - n < 0 ) {n = posizioneX; }
+    while (n>0 && posizioneX > 0) {
+        if (mappa[posizioneX - 1][0] == 1) {
+            gameOver();
+            return *this;
+        }
+        n--;
+        posizioneX--;
+    } possoSpostare = false;
+    return *this;
+}
+
+void SpaceAsteroids::gameOver() {
+    punteggio = 0;
+    energiaRim = energiaMax;
+    for (int i = 0; i < larghezza; i++) {
+        for (int j = 0; j < altezza; j++) {
+            mappa[i][j] = 0;
+        }
+    } posizioneX = larghezza/2, mappa[posizioneX][0] = -1, possoSpostare = true, possoSparare = true;
+}
+
+SpaceAsteroids &SpaceAsteroids::operator>>=(int n) {
+    if (!possoSpostare) { return *this;} if (n + posizioneX >= larghezza) {n = larghezza - posizioneX -1; }
+    while (n>0 && posizioneX < larghezza) {
+        if (mappa[posizioneX + 1][0] == 1) {
+            gameOver();
+            return *this;
+        }
+        n--;
+        posizioneX++;
+    } possoSpostare = false;
+    return *this;
+}
+SpaceAsteroids &SpaceAsteroids::operator|=(int n) {
+    if (n < 1 || !possoSparare || energiaRim == 0) { return *this;}
+    if (n > energiaRim) {n = energiaRim;}
+    if (mappa[posizioneX][1] == 1) {
+        punteggio++;
+        if (punteggio > punteggioMaxGlob) { punteggioMaxGlob = punteggio;}
+    }
+    energiaRim -= n, possoSparare = false;
+    mappa[posizioneX][1] = 10 + n - mappa[posizioneX][1];
+    mappa[posizioneX][1] = mappa[posizioneX][1] == 10 ? 0 : mappa[posizioneX][1];
+    return *this;
+}
+SpaceAsteroids::~SpaceAsteroids() {
+    for (int i = 0; i < larghezza; i++) {
+        delete[] mappa[i];
+    }
+}
 /*
 SpaceAsteroids::SpaceAsteroids(const int naltezza, const int nlarghezza, const int nenergiaMax) {
     if (naltezza < 8 && naltezza > 2) {
@@ -181,6 +300,8 @@ SpaceAsteroids &SpaceAsteroids::operator<<=(int n) {
         n--;
         posizioneX--;
     } possoSpostare = false;
+    punteggio++;
+    if (punteggio > punteggioMaxGlob) { punteggioMaxGlob = punteggio; }
     return *this;
 }
 
@@ -204,6 +325,8 @@ SpaceAsteroids &SpaceAsteroids::operator>>=(int n) {
         n--;
         posizioneX++;
     } possoSpostare = false;
+    punteggio++;
+    if (punteggio > punteggioMaxGlob) { punteggioMaxGlob = punteggio; }
     return *this;
 }
 

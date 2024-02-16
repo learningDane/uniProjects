@@ -95,10 +95,14 @@ int main() {
 
     cout << "Test laser su asteroide con scomparsa e laser che distrugge asteroide a due righe di distanza:" << endl;
     s.colloca_asteroide(1);
+    cout << s << endl;
     for(unsigned i = 3; i <= 8; ++i)
         s.colloca_asteroide(i);
+    cout << s << endl;
     s >>= 3;
+    cout << s << endl;
     s.avanza();
+    cout << s << endl;
     s |= 1;
     cout << s << endl;
 
@@ -165,10 +169,14 @@ int main() {
     cout << s1 << endl;
 
     cout << "Test avanza con sconfitta che prima aggiorna il record per gli asteroidi distrutti" << endl;
+    cout << s1 << endl;
     for(unsigned i = 6; i <= 9; ++i)
         s1.colloca_asteroide(i);
+    cout << s1 << endl;
     s1 |= 1;
+    cout << s1 << endl;
     s1 >>= 1;
+    cout << s1 << endl;
     s1.avanza();
     cout << s1 << endl;
 
