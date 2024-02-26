@@ -55,6 +55,12 @@ build CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj: CXX_COMPILER__TempEseguir
   OBJECT_DIR = CMakeFiles\TempEseguireDesktop.dir
   OBJECT_FILE_DIR = CMakeFiles\TempEseguireDesktop.dir
 
+build CMakeFiles/TempEseguireDesktop.dir/Compito.cpp.obj: CXX_COMPILER__TempEseguireDesktop_unscanned_Debug E$:/Davide/Documents/Uni/uniProjects/TempEseguireDesktop/Compito.cpp || cmake_object_order_depends_target_TempEseguireDesktop
+  DEP_FILE = CMakeFiles\TempEseguireDesktop.dir\Compito.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\TempEseguireDesktop.dir
+  OBJECT_FILE_DIR = CMakeFiles\TempEseguireDesktop.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target TempEseguireDesktop
@@ -63,7 +69,7 @@ build CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj: CXX_COMPILER__TempEseguir
 #############################################
 # Link the executable TempEseguireDesktop.exe
 
-build TempEseguireDesktop.exe: CXX_EXECUTABLE_LINKER__TempEseguireDesktop_Debug CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj
+build TempEseguireDesktop.exe: CXX_EXECUTABLE_LINKER__TempEseguireDesktop_Debug CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj CMakeFiles/TempEseguireDesktop.dir/Compito.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\TempEseguireDesktop.dir

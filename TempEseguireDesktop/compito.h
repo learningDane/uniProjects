@@ -1,34 +1,37 @@
-#ifndef DAVIDESQUERI_COMPITO_H
-#define DAVIDESQUERI_COMPITO_H
-#include<iostream>
-using namespace std;
+#ifndef PIETRODEMARIA_COMPITO_H
+#define PIETRODEMARIA_COMPITO_H
 
+#include <iostream>
+#include <cstring>
+using namespace std;
+extern int record;
 
 class SpaceAsteroids {
-    int altezza = 7;
-    int larghezza = 9;
-    int energiaMax = 5;
-    int energiaRim = 5;
-    int punteggio = 0;
-    int punteggioMax = 0;
-    int**mappa = nullptr; //mappa[posizioneX][posizioneY]
-    int posizioneX = 4;
-    bool possoSpostare = true;
-    bool possoSparare = true;
+    char* schermo;
+    int* energiaRaggi;
+    int colonne, righe, energia;
+    int energiaStart;
+    int punteggio;
+    bool reset;
+    bool avanzato;
+    bool avanzatoLaser;
+    void pulisciSchermo();
     void avanza_asteroidi();
-    void gameOver();
 public:
-    SpaceAsteroids(const int naltezza, const int nlarghezza, const int nenergiaMax);
-    bool colloca_asteroide(int colonna);
+    //PRIMA PARTE
+    //static int record;
+    SpaceAsteroids(int,int,int);
+    friend ostream& operator<<(ostream&,const SpaceAsteroids&);
+    bool colloca_asteroide(int);
     void avanza();
-    friend ostream& operator<<(ostream& os,const SpaceAsteroids&questo);
-    virtual ~SpaceAsteroids();
+    //SECONDA PARTE
+    ~SpaceAsteroids(){ delete[] schermo;};
     SpaceAsteroids& operator<<=(int n);
     SpaceAsteroids& operator>>=(int n);
     SpaceAsteroids& operator|=(int n);
 };
+//int SpaceAsteroids::record = 0;
 
-
-#endif //DAVIDESQUERI_COMPITO_H
+#endif //PIETRODEMARIA_COMPITO_H
 
 // fine file

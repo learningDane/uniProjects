@@ -1,9 +1,14 @@
 # ninja log v5
 3	344	7297082492012625	CMakeFiles/TempEseguireDesktop.dir/compito.cpp.obj	ba68e1db9cfdb7f3
-2	340	7297079803985539	CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj	acba9251b91944a3
-344	415	7297082492713260	TempEseguireDesktop.exe	124d6dc800b5e7cb
-6	336	7300598834864979	build.ninja	96e7faf083520860
-2	459	7300598839912270	CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj	acba9251b91944a3
-459	658	7300598841884086	TempEseguireDesktop.exe	9c3e86a517a105dc
 3	356	7300598957897336	CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj	acba9251b91944a3
 357	441	7300598958718032	TempEseguireDesktop.exe	9c3e86a517a105dc
+6	336	7305146800582254	build.ninja	96e7faf083520860
+4	430	7305147226995088	CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj	acba9251b91944a3
+8	430	7305147226995088	CMakeFiles/TempEseguireDesktop.dir/Compito.cpp.obj	9a32be6b137bb809
+430	628	7305147228956884	TempEseguireDesktop.exe	77fbe5e72da8fc24
+5	384	7305154790759385	CMakeFiles/TempEseguireDesktop.dir/Compito.cpp.obj	9a32be6b137bb809
+2	395	7305154790869487	CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj	acba9251b91944a3
+396	489	7305154791800335	TempEseguireDesktop.exe	77fbe5e72da8fc24
+3	341	7305157600707120	CMakeFiles/TempEseguireDesktop.dir/main.cpp.obj	acba9251b91944a3
+6	348	7305157600787190	CMakeFiles/TempEseguireDesktop.dir/Compito.cpp.obj	9a32be6b137bb809
+349	422	7305157601497837	TempEseguireDesktop.exe	77fbe5e72da8fc24
